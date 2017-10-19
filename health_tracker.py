@@ -9,6 +9,7 @@ class HitPoints():
     def take_pain(self, points):
         self.hp = self.hp - points
 
+
     def heal_up(self, points):
         self.hp = self.hp + points
 
@@ -17,3 +18,6 @@ class HitPoints():
 
     def long_rest(self):
         pass
+
+    def get_points(self):
+        print("Current Points : {}".format(self.hp))
