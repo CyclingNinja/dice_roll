@@ -1,9 +1,14 @@
 import numpy as np
 
 class HitPoints():
-    def __init__(self, total_hp):
-        self.hp = total_hp
-        self.total_hp = total_hp
+    def __init__(self, max_hp):
+        # initialise the varying hp
+        self.hp = max_hp
+
+        # hold some stats in memory
+        self.max_hp = max_hp
+        self.bloodied = max_hp / 2.0
+        self.death = self.bloodied * -1.0
 
 
     def take_pain(self, points):
