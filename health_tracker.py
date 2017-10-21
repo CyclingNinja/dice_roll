@@ -14,10 +14,13 @@ class HitPoints():
     def take_pain(self, points):
         self.hp = self.hp - points
 
-        if self.hp < self.bloodied:
+        if (self.hp < self.bloodied) & (self.hp > 0):
             return "You are bloodied"
         elif self.hp <= 0:
             return "Curl up and await the icy embrace of death"
+        elif (self.hp <= self.death):
+            return "The spark of your life os covered in shite"
+
         else:
             pass
 
@@ -32,6 +35,12 @@ class HitPoints():
 
     def long_rest(self):
         self.hp = self.max_hp
+
+    def save_throw_res(self):
+        if self.hp <= 0:
+            self.hp = 1
+        else:
+            return "You weren't dead . . . yet"
 
     def get_points(self):
         print("Current Points : {}".format(self.hp))
