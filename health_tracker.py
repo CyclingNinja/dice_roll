@@ -3,7 +3,7 @@ from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 
 
-class HitPoints():
+class HitPoints:
     def __init__(self, max_hp):
         # initialise the varying hp
         self.hp = max_hp
@@ -49,9 +49,12 @@ class HitPoints():
         return self.hp
 
 
-class Characters():
-    def __init__(self):
-        self.char_dict = {}
+class Characters:
+    # https://stackoverflow.com/questions/14795546/what-is-the-dfifference-between-instance-dict-and-class-dict
+    class_dict = {}
+
+    def __init__(self, char_name):
+        self.char_dict = char_name
 
     def create_character(self, character_name, hp):
         self.char_dict[character_name] = HitPoints(hp)
