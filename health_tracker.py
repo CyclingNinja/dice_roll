@@ -1,4 +1,6 @@
 import numpy as np
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 
 
 class HitPoints():
@@ -19,7 +21,7 @@ class HitPoints():
         elif self.hp <= 0:
             return "Curl up and await the icy embrace of death"
         elif (self.hp <= self.death):
-            return "The spark of your life os covered in shite"
+            return "The spark of your life is smothered in shite"
 
         else:
             pass
@@ -40,7 +42,37 @@ class HitPoints():
         if self.hp <= 0:
             self.hp = 1
         else:
-            return "You weren't dead . . . yet"
+            return "Congrats! not dead! . . . yet"
 
     def get_points(self):
-        print("Current Points : {}".format(self.hp))
+        # print("Current Points : {}".format(self.hp))
+        return self.hp
+
+
+class Characters():
+    def __init__(self):
+        self.char_dict = {}
+
+    def create_character(self, character_name, hp):
+        self.char_dict[character_name] = HitPoints(hp)
+
+    def get_characters(self):
+        for i, name in self.char_dict.items():
+            print(i, name.get_points())
+
+    def perform_operation(self, char_name, method_string, val=None):
+        # get list of function names from HP
+        hp_names = dir(HitPoints(0))
+
+        method = process.extractOne(method_string, hp_names)
+        if val is not None:
+            getattr(self.char_dict[char_name], method[0])(val)
+        else:
+            getattr(self.char_dict[char_name], method[0])
+
+
+
+
+
+
+
