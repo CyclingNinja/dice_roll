@@ -50,14 +50,19 @@ class HitPoints:
 
 
 class Characters:
-    # https://stackoverflow.com/questions/14795546/what-is-the-dfifference-between-instance-dict-and-class-dict
-    class_dict = {}
+    """
+    https://gist.github.com/Integralist/f790b21acc5fa178830f060f649a04c4
+
+    TODO: get some things sorted wrt to calling the attributes from
+    the database
+
+    """
 
     def __init__(self, char_name):
-        self.char_dict = char_name
+        super().__init__()
 
-    def create_character(self, character_name, hp):
-        self.char_dict[character_name] = HitPoints(hp)
+    def __setitem__(self, key, value):
+       super().__setitem__(key, value)
 
     def get_characters(self):
         for i, name in self.char_dict.items():
