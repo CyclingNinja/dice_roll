@@ -16,7 +16,7 @@ class HitPoints:
     def take_pain(self, points):
         self.hp = self.hp - points
 
-        if (self.hp < self.bloodied) & (self.hp > 0):
+        if (self.hp <= self.bloodied) & (self.hp > 0):
             return "You are bloodied"
         elif self.hp <= 0:
             return "Curl up and await the icy embrace of death"
@@ -49,33 +49,22 @@ class HitPoints:
         return self.hp
 
 
-class Characters:
-    # https://stackoverflow.com/questions/14795546/what-is-the-dfifference-between-instance-dict-and-class-dict
-    class_dict = {}
+class Characters(dict):
+    """
+    https://gist.github.com/Integralist/f790b21acc5fa178830f060f649a04c4
 
-    def __init__(self, char_name):
-        self.char_dict = char_name
+    TODO: get some things sorted wrt to calling the attributes from
+    the database
 
-    def create_character(self, character_name, hp):
-        self.char_dict[character_name] = HitPoints(hp)
+    """
+
+    def __init__(self):
+        super().__init__()
+
+    def __setitem__(self, key, value):
+       super().__setitem__(key, HitPoints(value))
 
     def get_characters(self):
-        for i, name in self.char_dict.items():
+        for i, name in self.items():
             print(i, name.get_points())
-
-    def perform_operation(self, char_name, method_string, val=None):
-        # get list of function names from HP
-        hp_names = dir(HitPoints(0))
-
-        method = process.extractOne(method_string, hp_names)
-        if val is not None:
-            getattr(self.char_dict[char_name], method[0])(val)
-        else:
-            getattr(self.char_dict[char_name], method[0])
-
-
-
-
-
-
 
